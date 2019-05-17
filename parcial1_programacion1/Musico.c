@@ -168,6 +168,7 @@ int musico_alta(Musico array[], Orquesta arrayOrquesta[], Instrumento arrayInstr
         {
             if(utn_getUnsignedInt("\nIngrese el ID de la Orquesta a la que pertenece el musico:\n","\nID Invalida.\n",1,sizeof(int),1,10,1,&bufferInt))
             {
+                printf("\nID de Orquesta invalida.\n");
                 return retorno;
             }           //mensaje + cambiar campo edad         //mensaje + cambiar campo varFloat
             else
@@ -182,6 +183,7 @@ int musico_alta(Musico array[], Orquesta arrayOrquesta[], Instrumento arrayInstr
             }
             if(utn_getUnsignedInt("\nIngrese el ID del Instrumento que toca el musico:\n","\nID Invalida.\n",1,sizeof(int),1,10,1,&bufferInt))
             {
+                printf("\nID de Instrumento invalido.\n");
                 return retorno;
             }           //mensaje + cambiar campo edad         //mensaje + cambiar campo varFloat
             else
@@ -191,19 +193,23 @@ int musico_alta(Musico array[], Orquesta arrayOrquesta[], Instrumento arrayInstr
                     array[posicion].idInstrumento = bufferInt;
                 }else
                 {
+                    printf("\nID de Instrumento no encontrado.\n");
                     return retorno;
                 }
             }
             if(utn_getName("\nIngrese el nombre del Musico: ","\nError",1,TEXT_SIZE,1,array[posicion].nombre))
             {
+                printf("\nNombre invalido.\n");
                 return retorno;
             }                      //mensaje + cambiar campo nombre
             if(utn_getName("\nIngrese el apellido del Musico: ","\nError",1,TEXT_SIZE,1,array[posicion].apellido))
             {
+                printf("\nApellido invalido.\n");
                 return retorno;
             }                 //mensaje + cambiar campo apellido
             if(utn_getUnsignedInt("\nIngrese la edad: ","\nEdad invalida.\n",1,sizeof(int),1,10,1,&bufferInt))
             {
+                printf("\nEdad invalida.\n");
                 return retorno;
             }else
             {
@@ -457,4 +463,26 @@ int musico_listar(Musico array[], Instrumento arrayInstrumento[], int size)     
     return retorno;
 }
 
-
+int musico_bajaPorOrquesta(Musico array[], int sizeArray, int idAEliminar)                                      //cambiar musico
+{
+    int retorno=-1;
+    int i;
+    if(array!=NULL && sizeArray>0)
+    {
+        for(i=0;i<sizeArray;i++)
+        {
+            if(array[i].idOrquesta == idAEliminar)
+            {
+                array[i].isEmpty=1;
+                array[i].idUnico=0;                                                                   //cambiar campo id
+                array[i].edad=0;                                                               //cambiar campo edad                                                            //cambiar campo varFloat
+                strcpy(array[i].nombre,"");                                                   //cambiar campo nombre
+                strcpy(array[i].apellido,"");
+                array[i].idOrquesta = 0;
+                array[i].idInstrumento = 0;                                               //cambiar campo apellido
+                retorno=0;
+            }
+        }
+    }
+    return retorno;
+}

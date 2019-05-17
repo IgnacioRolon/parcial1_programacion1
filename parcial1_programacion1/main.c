@@ -22,6 +22,7 @@ int main()
     int idMusicos = 0;
     musico_Inicializar(arrayMusicos, MUSICOS_MAX);
 
+    int aux;
     int respuesta = -2;
     while(respuesta != 10)
     {
@@ -32,7 +33,10 @@ int main()
                 orquesta_alta(arrayOrquestas, ORQUESTAS_MAX, &idOrquestas);
                 break;
             case 2:
-                orquesta_baja(arrayOrquestas, ORQUESTAS_MAX);
+                if(!orquesta_baja(arrayOrquestas, ORQUESTAS_MAX, &aux))
+                {
+                    musico_bajaPorOrquesta(arrayMusicos, MUSICOS_MAX, aux);
+                }
                 break;
             case 3:
                 orquesta_listar(arrayOrquestas, ORQUESTAS_MAX);
@@ -45,6 +49,7 @@ int main()
                 musico_modificar(arrayMusicos, arrayOrquestas, MUSICOS_MAX);
                 break;
             case 6:
+                musico_listar(arrayMusicos, arrayInstrumentos, MUSICOS_MAX);
                 musico_baja(arrayMusicos, MUSICOS_MAX);
                 break;
             case 7:

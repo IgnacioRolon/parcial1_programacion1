@@ -81,6 +81,10 @@ int instrumento_buscarID(Instrumento array[], int size, int valorBuscado, int* p
             }
         }
     }
+    if(retorno == -1)
+    {
+        printf("No se ha encontrado un Instrumento con dicha ID.");
+    }
     return retorno;
 }
 /** \brief Busca un int en un array y devuelve la posicion en que se encuentra
@@ -164,11 +168,12 @@ int instrumento_alta(Instrumento array[], int size, int* contadorID)            
         {
             if(utn_getUnsignedInt("\nIngrese el tipo de Instrumento: \n1- Cuerdas\n2- Viento-madera\n3- Viento-metal\n4- Percusion\n","\nTipo de Instrumento No Valido.",1,sizeof(int),1,10,1,&bufferInt))
             {
+                printf("\nTipo de Instrumento No Valido.\n");
                 return retorno;
             }           //mensaje + cambiar campo tipo         //mensaje + cambiar campo varFloat
             if(bufferInt > 4 || bufferInt < 1)
             {
-                printf("Tipo de Instrumento No Valido.");
+                printf("\nTipo de Instrumento No Valido.\n");
                 return retorno;
             }else
             {
@@ -176,6 +181,7 @@ int instrumento_alta(Instrumento array[], int size, int* contadorID)            
             }
             if(utn_getName("\nIngrese el nombre del Instrumento: ","\nError",1,TEXT_SIZE,1,array[posicion].nombre))
             {
+                printf("\nNombre de Instrumento No Valido.\n");
                 return retorno;
             }                      //mensaje + cambiar campo nombre
             (*contadorID)++;

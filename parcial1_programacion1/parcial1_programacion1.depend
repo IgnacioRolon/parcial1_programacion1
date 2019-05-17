@@ -47,3 +47,52 @@
 	"Orquesta.h"
 	"Instrumentos.h"
 
+1558052516 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/main.c
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Orquesta.h"
+	"Instrumentos.h"
+	"Musico.h"
+
+1557869046 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/utn.h
+
+1558053369 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Orquesta.h
+
+1558046858 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Instrumentos.h
+
+1558052910 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Musico.h
+	"Orquesta.h"
+	"Instrumentos.h"
+
+1558046557 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/utn.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1558052207 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Instrumentos.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Instrumentos.h"
+
+1558053293 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Orquesta.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Musico.h"
+	"Orquesta.h"
+
+1558053306 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Musico.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdio_ext.h>
+	"utn.h"
+	"Musico.h"
+	"Orquesta.h"
+	"Instrumentos.h"
+

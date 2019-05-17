@@ -31,4 +31,5 @@ int musico_bajaValorRepetidoInt(Musico array[], int sizeArray, int valorBuscado)
 int musico_modificar(Musico array[], Orquesta arrayOrquesta[], int sizeArray);                                //cambiar musico
 int musico_ordenarPorDobleCriterio(Musico array[],int size, int orderFirst, int orderSecond);                                  //cambiar musico
 int musico_listar(Musico array[], Instrumento arrayInstrumento[], int size);                      //cambiar musico
+int musico_bajaPorOrquesta(Musico array[], int sizeArray, int idAEliminar);
 

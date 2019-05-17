@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utn.h"
+#include "Musico.h"
 #include "Orquesta.h" //cambiar por nombre entidad
 
 
@@ -80,6 +81,10 @@ int orquesta_buscarID(Orquesta array[], int size, int valorBuscado, int* posicio
                 break;
             }
         }
+    }
+    if(retorno == -1)
+    {
+        printf("No se ha encontrado una Orquesta con dicha ID.");
     }
     return retorno;
 }
@@ -164,6 +169,7 @@ int orquesta_alta(Orquesta array[], int size, int* contadorID)                  
         {
             if(utn_getUnsignedInt("\nIngrese el tipo de Orquesta: \n1- Sinfonica\n2- Filarmonica\n3- Camara\n","\nTipo de Orquesta No Valido.",1,sizeof(int),1,10,1,&bufferInt))
             {
+                printf("Tipo de Orquesta No Valido.");
                 return retorno;
             }           //mensaje + cambiar campo tipo         //mensaje + cambiar campo varFloat
             if(bufferInt > 3 || bufferInt < 1)
@@ -176,16 +182,18 @@ int orquesta_alta(Orquesta array[], int size, int* contadorID)                  
             }
             if(utn_getName("\nIngrese el nombre de la Orquesta: ","\nError",1,TEXT_SIZE,1,array[posicion].nombre))
             {
+                printf("\nNombre de Orquesta invalido.\n");
                 return retorno;
             }                      //mensaje + cambiar campo nombre
             if(utn_getTexto("\nIngrese el lugar de origen: ","\nError",1,TEXT_SIZE,1,array[posicion].lugar))
             {
+                printf("\nLugar de Origen invalido.\n");
                 return retorno;
             }                 //mensaje + cambiar campo lugar
             (*contadorID)++;
             array[posicion].idUnico=*contadorID;                                                       //campo ID
             array[posicion].isEmpty=0;
-            printf("\n ID: %d\n Tipo: %d\n Nombre: %s\n Lugar: %s",
+            printf("\n ID: %d\n Tipo: %d\n Nombre: %s\n Lugar: %s\n",
                   array[posicion].idUnico,array[posicion].tipo,array[posicion].nombre,array[posicion].lugar);
             retorno=0;
         }
@@ -201,7 +209,7 @@ int orquesta_alta(Orquesta array[], int size, int* contadorID)                  
 * \return int Return (-1) si Error [largo no valido o NULL pointer o no encuentra elementos con el valor buscado] - (0) si se elimina el elemento exitosamente
 *
 */
-int orquesta_baja(Orquesta array[], int sizeArray)                                      //cambiar orquesta
+int orquesta_baja(Orquesta array[], int sizeArray, int* idBajada)                                      //cambiar orquesta
 {
     int retorno=-1;
     int posicion;
@@ -215,6 +223,7 @@ int orquesta_baja(Orquesta array[], int sizeArray)                              
         }
         else
         {
+            *idBajada = posicion;
             array[posicion].isEmpty=1;
             array[posicion].idUnico=0;                                                                   //cambiar campo id
             array[posicion].tipo=0;                                                               //cambiar campo tipo                                                            //cambiar campo varFloat
@@ -399,7 +408,7 @@ int orquesta_listar(Orquesta array[], int size)                      //cambiar o
                         strcpy(bufferTipo, "Camara");
                         break;
                 }
-                printf("\n ID: %d\n Tipo: %s\n Nombre: %s\n Lugar: %s",
+                printf("\n ID: %d\n Tipo: %s\n Nombre: %s\n Lugar: %s\n",
                        array[i].idUnico,bufferTipo,array[i].nombre,array[i].lugar);      //cambiar todos
             }
         }
