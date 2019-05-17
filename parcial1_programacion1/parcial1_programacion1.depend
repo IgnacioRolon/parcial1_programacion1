@@ -47,7 +47,7 @@
 	"Orquesta.h"
 	"Instrumentos.h"
 
-1558052516 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/main.c
+1558053494 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/main.c
 	<stdio.h>
 	<stdlib.h>
 	"utn.h"
@@ -78,7 +78,7 @@
 	"utn.h"
 	"Instrumentos.h"
 
-1558053293 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Orquesta.c
+1558053353 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Orquesta.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>

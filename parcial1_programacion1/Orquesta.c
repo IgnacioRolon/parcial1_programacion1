@@ -223,7 +223,7 @@ int orquesta_baja(Orquesta array[], int sizeArray, int* idBajada)               
         }
         else
         {
-            *idBajada = posicion;
+            *idBajada = id;
             array[posicion].isEmpty=1;
             array[posicion].idUnico=0;                                                                   //cambiar campo id
             array[posicion].tipo=0;                                                               //cambiar campo tipo                                                            //cambiar campo varFloat
