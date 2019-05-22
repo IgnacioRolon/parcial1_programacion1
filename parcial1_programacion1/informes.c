@@ -2,86 +2,142 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utn.h"
-#include "fantasma.h"  //cambiar por nombre entidad
+#include "Musico.h"
+#include "Instrumentos.h"
+#include "informes.h"
 
-/** \brief Busca un valor y lista los elementos de dos arrays vinculados
-* \param arrayA Fantasma Array de Fantasma
-* \param arrayB Fantasma Array de Fantasma
-* \param sizeI int Tamaño del arrayA
-* \param sizeJ int Tamaño del arrayB
-* \param criterio char* Puntero al valor que debe contener el elemento del array para que se liste
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
-*
-*/
-int Informes_listarPorCriterio(Fantasma arrayA[], Fantasma arrayB[], int sizeI, int sizeJ, char* criterio)  //Valores de dos arrays. Si es valor repetido se vuelve a imprimir
+#define TEXT_SIZE 20
+
+int informes_orquestasPorLugar(Orquesta array[], int sizeArray)
 {
-    int retorno=-1;
     int i;
-    int j;
-    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0 && criterio!=NULL)
+    int retorno = -1;
+    char bufferText[TEXT_SIZE];
+    char bufferTipo[TEXT_SIZE];
+    if(array != NULL && sizeArray >= 0)
     {
-        for(i=0;i<sizeI;i++)                                                                            //Obtengo la posicion de la primer entidad
+        if(utn_getTexto("\nIngrese el lugar de origen: ","\nError",1,TEXT_SIZE,1,bufferText))
         {
-            if(arrayA[i].isEmpty==1)                 //cambiar campo donde busco el criterio
-                continue;                                                                       //si esta vacio o no tiene el criterio > continue
-            if(strcmp(arrayA[i].varString,criterio)==0)
-            {
-                fantasma_buscarID(arrayB,sizeJ,arrayA[i].idUnico,&j);                            //Obtengo la posicion de la 2da entidad buscando por el campo en comun
-                printf("\nID A: %d\nID B: %d",
-                       arrayA[i].idUnico,arrayB[j].idUnico);
-            }
-
+            printf("\nLugar de Origen invalido.\n");
+            return retorno;
         }
-        retorno=0;
+        for(i=0;i<sizeArray;i++)
+        {
+            if(strcmp(array[i].lugar, bufferText) == 0)
+            {
+                switch(array[i].tipo)
+                {
+                    case 1:
+                        strcpy(bufferTipo, "Sinfonica");
+                        break;
+                    case 2:
+                        strcpy(bufferTipo, "Filarmonica");
+                        break;
+                    case 3:
+                        strcpy(bufferTipo, "Camara");
+                        break;
+                }
+                printf("\n ID: %d\n Tipo: %s\n Nombre: %s\n Lugar: %s\n",
+                       array[i].idUnico,bufferTipo,array[i].nombre,array[i].lugar);
+                retorno = 0;
+            }
+        }
+        if(retorno)
+        {
+            printf("No se ha encontrado ninguna orquesta de dicho lugar.");
+        }
     }
     return retorno;
 }
 
-/** \brief Busca un valor repetido y lo lista una sola vez, junto con otros elementos de dos arrays vinculados
-* \param arrayA Fantasma Array de Fantasma
-* \param arrayB Fantasma Array de Fantasma
-* \param sizeI int Tamaño del arrayA
-* \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
-*
-*/
-//Lista un campo que se repite, lo imprime una sola vez y calcula contador y acumulado
-int Informes_listarCriterioContadorAcumulado(Fantasma arrayA[], Fantasma arrayB[], int sizeI, int sizeJ)         //cambiar Fantasma
+int informes_musicosMenoresA25(Musico arrayMusicos[], Instrumento arrayInstrumentos[], Orquesta arrayOrquestas[], int sizeArray, int sizeOrquestas, int sizeInstrumentos)
 {
-    int retorno=-1;
-    int i;
-    int j;
-    int k;
-    int auxPosicion;
-    int contador=0;
-    int acumulado=0;
-
-    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
+    int i,j;
+    int retorno = -1;
+    char bufferOrquesta[TEXT_SIZE];
+    char bufferInstrumento[TEXT_SIZE];
+    if(arrayMusicos != NULL && arrayInstrumentos != NULL && arrayOrquestas != NULL && sizeArray >= 0 && sizeInstrumentos >= 0 && sizeOrquestas >= 0)
     {
-        for(i=0;i<sizeI;i++)
+        for(i=0;i<sizeArray;i++)
         {
-            fantasma_buscarString(arrayA,i,arrayA[i].varString,&auxPosicion);                  //cambiar nombreFuncion y campo      va a analizar hasta <i
-            if(arrayA[i].isEmpty==1 && auxPosicion!=-1)
-                continue;                                                                 //Si ese valor ya aparecio > continue
-            else
+            if(arrayMusicos[i].isEmpty)
             {
-                printf("\nCampo: %s",arrayA[i].varString);                                   //Imprimo el valor que voy a listar
-                for(k=i,contador=0,acumulado=0;k<sizeI;k++)                                                            //Recorro por segunda vez el mismo array
+                continue;
+            }
+            if(arrayMusicos[i].edad < 25)
+            {
+                for(j=0;j<sizeOrquestas;j++)
                 {
-                    if(arrayA[k].isEmpty!=1 && strcmp(arrayA[k].varString,arrayA[i].varString)==0)     //Busco todas las veces que aparece ese cuit
+                    if(arrayMusicos[i].idOrquesta == arrayOrquestas[j].idUnico)
                     {
-                        fantasma_buscarID(arrayB,sizeJ,arrayA[k].idUnico,&j);                 //cambiar Fantasma, busco por el campo en comun
-
-                        contador++;
-                        acumulado+=(arrayA[k].varInt*arrayB[j].varInt);
-
-                        printf("\nID A: %d\nID B: %d",
-                                arrayA[k].idUnico,arrayB[j].idUnico);
+                        strcpy(bufferOrquesta, arrayOrquestas[j].nombre);
+                        break;
                     }
                 }
-                printf("\nCantidad: %d \nAcumulado: %d",contador,acumulado);
-                //contador=0;
-                //acumulado=0;
+                for(j=0;j<sizeInstrumentos;j++)
+                {
+                    if(arrayMusicos[i].idInstrumento == arrayInstrumentos[j].idUnico)
+                    {
+                        strcpy(bufferInstrumento, arrayInstrumentos[j].nombre);
+                        break;
+                    }
+                }
+                printf("\nID: %d\nNombre: %s\nApellido: %s\nEdad: %d\nInstrumento: %s\nOrquesta: %s\n",
+                        arrayMusicos[i].idUnico, arrayMusicos[i].nombre, arrayMusicos[i].apellido, arrayMusicos[i].edad, bufferInstrumento, bufferOrquesta);
+                retorno = 0;
+            }
+        }
+        if(retorno)
+        {
+            printf("No se ha encontrado ningun musico menor de 25.");
+        }
+    }
+    return retorno;
+}
+
+int informes_listarOrquestasMenosDe6(Orquesta array[], Musico arrayMusicos[], int size, int sizeMusicos)                      //cambiar orquesta
+{
+    int retorno=-1;
+    char bufferTipo[TEXT_SIZE];
+    int i,j;
+    int contadorOrquestas = 0;
+    if(array!=NULL && arrayMusicos != NULL && size>=0 && sizeMusicos >=0)
+    {
+        for(i=0;i<size;i++)
+        {
+            if(array[i].isEmpty==1)
+                continue;
+            else
+            {
+                for(j=0;j<sizeMusicos;j++)
+                {
+                    if(arrayMusicos[j].isEmpty)
+                    {
+                        continue;
+                    }
+                    if(array[i].idUnico == arrayMusicos[j].idOrquesta)
+                    {
+                        contadorOrquestas++;
+                    }
+                }
+                if(contadorOrquestas < 6)
+                {
+                    switch(array[i].tipo)
+                    {
+                        case 1:
+                            strcpy(bufferTipo, "Sinfonica");
+                            break;
+                        case 2:
+                            strcpy(bufferTipo, "Filarmonica");
+                            break;
+                        case 3:
+                            strcpy(bufferTipo, "Camara");
+                            break;
+                    }
+                    printf("\n ID: %d\n Tipo: %s\n Nombre: %s\n Lugar: %s\n",
+                           array[i].idUnico,bufferTipo,array[i].nombre,array[i].lugar);
+                }
+                contadorOrquestas = 0;
             }
         }
         retorno=0;
@@ -89,153 +145,237 @@ int Informes_listarCriterioContadorAcumulado(Fantasma arrayA[], Fantasma arrayB[
     return retorno;
 }
 
-/** \brief Busca un maximo de ocurrencia y acumulado
-* \param arrayA Fantasma Array de Fantasma
-* \param arrayB Fantasma Array de Fantasma
-* \param sizeI int Tamaño del arrayA
-* \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
-*
-*/
-int Informes_maxContadorAcumulado(Fantasma arrayA[], Fantasma arrayB[], int sizeI, int sizeJ)
+int informes_instrumentosDeUnaOrquesta(Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeMusicos, int sizeInstrumentos)
+{
+    int i,j;
+    int id;
+    int retorno = -1;
+    char bufferTipo[TEXT_SIZE];
+    if(arrayMusicos!=NULL && arrayInstrumentos != NULL && sizeInstrumentos>=0 && sizeMusicos >=0)
+    {
+        utn_getUnsignedInt("\nID de la Orquesta: ","\nError",1,sizeof(int),1,50,1,&id);
+        for(i=0;i<sizeMusicos;i++)
+        {
+            if(arrayMusicos[i].isEmpty)
+            {
+                continue;
+            }
+            if(arrayMusicos[i].idOrquesta == id)
+            {
+                for(j=0;j<sizeInstrumentos;j++)
+                {
+                    if(arrayMusicos[i].idInstrumento == arrayInstrumentos[j].idUnico)
+                    {
+                        switch(arrayInstrumentos[j].tipo)
+                        {
+                            case 1:
+                                strcpy(bufferTipo, "Cuerdas");
+                                break;
+                            case 2:
+                                strcpy(bufferTipo, "Viento-madera");
+                                break;
+                            case 3:
+                                strcpy(bufferTipo, "Viento-metal");
+                                break;
+                            case 4:
+                                strcpy(bufferTipo, "Percusion");
+                                break;
+                        }
+                        printf("\nInstrumento: %s\nTipo: %s\nMusico: %s\n", arrayInstrumentos[j].nombre, bufferTipo, arrayMusicos[i].nombre);
+                        retorno = 0;
+                        break;
+                    }
+                }
+            }
+        }
+        if(retorno)
+        {
+            printf("No se encontro ningun instrumento y/o musico para dicha orquesta.");
+        }
+    }
+    return retorno;
+}
+
+int informes_orquestasCompletas(Orquesta arrayOrquestas[], Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeOrquestas, int sizeMusicos, int sizeInstrumentos)
+{
+    int i,j,z;
+    int retorno = -1;
+    int contadorCuerdas = 0;
+    int contadorViento = 0;
+    int contadorPercusion = 0;
+    int bufferTipo;
+    if(arrayMusicos != NULL && arrayInstrumentos != NULL && arrayOrquestas != NULL && sizeMusicos >= 0 && sizeInstrumentos >= 0 && sizeOrquestas >= 0)
+    {
+        for(i=0;i<sizeOrquestas;i++)
+        {
+            if(arrayOrquestas[i].isEmpty)
+            {
+                continue;
+            }
+            for(j=0;j<sizeMusicos;j++)
+            {
+                if(arrayMusicos[j].isEmpty)
+                {
+                    continue;
+                }
+                if(arrayMusicos[j].idOrquesta == arrayOrquestas[i].idUnico)
+                {
+                    for(z=0;z<sizeInstrumentos;z++)
+                    {
+                        if(arrayMusicos[j].idInstrumento == arrayInstrumentos[z].idUnico)
+                        {
+                            bufferTipo = arrayInstrumentos[z].tipo;
+                            break;
+                        }
+                    }
+                    switch(bufferTipo)
+                    {
+                        case 1:
+                            contadorCuerdas++;
+                            break;
+                        case 2:
+                            contadorViento++;
+                            break;
+                        case 3:
+                            contadorViento++;
+                            break;
+                        case 4:
+                            contadorPercusion++;
+                            break;
+                    }
+                }
+                if(contadorCuerdas >= 4 && contadorViento >= 4 && contadorPercusion >= 1)
+                {
+                    printf("\nNombre: %s\nLugar: %s\n", arrayOrquestas[i].nombre, arrayOrquestas[i].lugar);
+                    retorno = 0;
+                }
+            }
+        }
+        if(retorno)
+        {
+            printf("No se ha encontrado ninguna orquesta completa.");
+        }
+    }
+    return retorno;
+}
+
+int informes_ordenarMusicos(MusicoAuxiliar array[],int size)                              //cambiar musico
 {
     int retorno=-1;
     int i;
-    int j;
-    int k;
-    int auxPosicion;
-    int maxAcumulado=0;
-    int maxContador=0;
-    int acumulador=0;
-    int contador=0;
-    int iMaxAcumulado [sizeI];
-    int iMaxContador [sizeI];
-
-    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
+    MusicoAuxiliar buffer;
+    int flagSwap;
+    if(array!=NULL && size>=0)
     {
-        for(i=0;i<sizeI;i++)
+        do
         {
-            fantasma_buscarString(arrayA,i,arrayA[i].varString,&auxPosicion);                  //cambiar nombreFuncion y campo
-            if(arrayA[i].isEmpty==1 && auxPosicion!=-1)
-                continue;                                                                 //Si ese valor ya aparecio > continue
-            else
+            flagSwap=0;
+            for(i = 1; i < size-1; i++)
             {
-                printf("\nCampo: %s",arrayA[i].varString);                                   //Imprimo el valor que voy a listar
-                for(k=i;k<sizeI;k++)                                                            //Recorro por segunda vez el mismo array
+                if(array[i].idOrquesta < array[i+1].idOrquesta)
                 {
-                    if(arrayA[k].isEmpty!=1 && strcmp(arrayA[k].varString,arrayA[i].varString)==0)     //Busco todas las veces que aparece ese cuit
-                    {
-
-                        fantasma_buscarID(arrayB,sizeJ,arrayA[k].idUnico,&j);                 //cambiar Fantasma, busco por el campo en comun
-
-                        contador++;                                                         //calculos acumulados y contador
-                        acumulador+=(arrayA[k].varInt*arrayB[j].varInt);
-
-                        printf("\nID A: %d\nID B: %d",                                         //imprimo datos que haya que mostrar
-                                arrayA[k].idUnico,arrayB[j].idUnico);
-                    }
+                    flagSwap=1;
+                    buffer = array[i];
+                    array[i] = array[i+1];
+                    array[i+1] = buffer;
                 }
-                //Guardo los max acumulado y contador
-                if(acumulador>maxAcumulado)
-                {
-                    maxAcumulado=acumulador;
-                    iMaxAcumulado[i-1]=-1;                       //Si mas de un cuit tiene la mayor facturacion
-                    iMaxAcumulado[i]=i;
-                }
-                else if(acumulador==maxAcumulado)
-                    iMaxAcumulado[i]=i;
-                else
-                    iMaxAcumulado[i]=-2;                         //Para marcar los lugares vacios
-
-                acumulador=0;
-
-                if(contador>maxContador)
-                {
-                    maxContador=contador;
-                    iMaxContador[i-1]=-1;                       //Si mas de un cuit tiene la mayor facturacion
-                    iMaxContador[i]=i;
-                }
-                else if(contador==maxContador)
-                    iMaxContador[i]=i;
-                else
-                    iMaxContador[i]=-2;                         //Para marcar los lugares vacios
-
-                contador=0;
             }
-        }
-
-        printf("\nMayor acumulado: %d \nMayor contador: %d \nI: ",maxAcumulado,maxContador);
-        for(;iMaxAcumulado[i]!=-1;i--)                                                      //Uno o el otro, sino agregar otro contador que no sea el i
-        {
-            if(iMaxAcumulado[i]!=-2)                         //Salteo los vacios
-            {
-                printf("\n          CUIT: %s",arrayA[iMaxAcumulado[i]].varString);
-            }
-        }
-        for(;iMaxContador[i]!=-1;i--)
-        {
-            if(iMaxContador[i]!=-2)                         //Salteo los vacios
-            {
-                printf("\n          CUIT: %s",arrayA[iMaxContador[i]].varString);
-            }
-        }
-
+        }while(flagSwap);
         retorno=0;
     }
     return retorno;
 }
 
-/** \brief Crea una entidad auxiliar para ordenar e informar XXXXX
-* \param arrayA Fantasma Array de Fantasma
-* \param arrayB Fantasma Array de Fantasma
-* \param sizeI int Tamaño del arrayA
-* \param sizeJ int Tamaño del arrayB
-* \return int Return (-1) si Error [Invalid length or NULL pointer] - (0) Ok
-*
-*/
-int Informes_listarAuxiliarOrdenar(Fantasma arrayA[], Fantasma arrayB[], int sizeI, int sizeJ)         //cambiar Fantasma
+int informes_initMusicoAuxiliar(MusicoAuxiliar arrayAux[], int sizeArray)
 {
-    int retorno=-1;
     int i;
-    int j;
-    int k;
-    int auxPosicion;
-    int contador=0;
-    int acumulado=0;
-
-    Fantasma arrayAux[sizeI];                                                           //cambiar Fantasma y size si corresponde
-
-    if(arrayA!=NULL && sizeI>=0 && arrayB!=NULL && sizeJ>=0)
+    for(i=0;i<sizeArray;i++)
     {
-        for(i=0;i<sizeI;i++)
+        arrayAux[i].isEmpty = 1;
+        arrayAux[i].idOrquesta = -1;
+    }
+    return 0;
+}
+
+int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrquestas[], MusicoAuxiliar arrayAux[], int sizeMusicos, int sizeOrquestas)
+{
+    int i;
+    int retorno = -1;
+    int posicionAux = 0;
+    int orquestaRepetida;
+    int orquestaMenor;
+    int contadorSeguidos = 1001;
+    int contadorAuxiliar = 0;
+    char bufferTipo[TEXT_SIZE];
+    if(arrayMusicos != NULL && arrayOrquestas != NULL && sizeMusicos >= 0 && sizeOrquestas >= 0)
+    {
+        informes_initMusicoAuxiliar(arrayAux, sizeMusicos);
+        for(i=0;i<sizeMusicos;i++)
         {
-            fantasma_buscarString(arrayA,i,arrayA[i].varString,&auxPosicion);                  //cambiar nombreFuncion y campo      va a analizar hasta <i
-            if(arrayA[i].isEmpty==1 && auxPosicion!=-1)
-                continue;                                                                 //Si ese valor ya aparecio > continue
-            else
+            if(arrayMusicos[i].isEmpty)
             {
-                strcpy(arrayAux[i].varString,arrayA[i].varString);                              //cambio varstring
-                for(k=i;k<sizeI;k++)                                                            //Recorro por segunda vez el mismo array
+                continue;
+            }
+            arrayAux[posicionAux].idOrquesta = arrayMusicos[i].idOrquesta;
+            posicionAux++;
+        }
+        informes_ordenarMusicos(arrayAux, sizeMusicos);
+        for(i=0;i<sizeMusicos;i++)
+        {
+            if(i==0)
+            {
+                orquestaRepetida = arrayAux[i].idOrquesta;
+                contadorAuxiliar = 1;
+                continue;
+            }
+            if(arrayAux[i].idOrquesta == orquestaRepetida)
+            {
+                contadorAuxiliar++;
+            }else{
+                if(contadorAuxiliar<contadorSeguidos)
                 {
-                    if(arrayA[k].isEmpty!=1 && strcmp(arrayA[k].varString,arrayA[i].varString)==0)     //Busco todas las veces que aparece ese cuit
-                    {
-                        fantasma_buscarID(arrayB,sizeJ,arrayA[k].idUnico,&j);                 //cambiar Fantasma, busco por el campo en comun
-
-                        contador++;
-                        acumulado+=(arrayA[k].varInt*arrayB[j].varInt);
-
-                    }
+                    contadorSeguidos = contadorAuxiliar;
+                    orquestaMenor = arrayAux[i-1].idOrquesta;
+                    retorno = 0;
                 }
-                arrayAux[i].varInt=contador;                                    //completo el resto de los campos
-                arrayAux[i].varInt=acumulado;
-                arrayAux[i].isEmpty=0;
-
-                contador=0;
-                acumulado=0;
+                contadorAuxiliar = 0;
+                orquestaRepetida = arrayAux[i].idOrquesta;
+            }
+            if(arrayAux[i].isEmpty == 1)
+            {
+                break; //Se hace break porque se sabe que todos estarán llenos hasta llegar a un isEmpty.
             }
         }
-        retorno=0;
+        //orquestaMenor contiene la Orquesta menos frecuente (la ID)
+        for(i=0;i<sizeOrquestas;i++)
+        {
+            if(arrayOrquestas[i].isEmpty)
+            {
+                continue;
+            }
+            if(arrayOrquestas[i].idUnico == orquestaMenor)
+            {
+                switch(arrayOrquestas[i].tipo)
+                {
+                    case 1:
+                        strcpy(bufferTipo, "Sinfonica");
+                        break;
+                    case 2:
+                        strcpy(bufferTipo, "Filarmonica");
+                        break;
+                    case 3:
+                        strcpy(bufferTipo, "Camara");
+                        break;
+                }
+                printf("\nOrquesta: %s\nLugar: %s\nTipo %s\nCantidad de Musicos: %d",
+                        arrayOrquestas[i].nombre, arrayOrquestas[i].lugar, bufferTipo, contadorSeguidos);
+                retorno = 0;
+            }
+        }
+        if(retorno)
+        {
+            printf("No se encontro ninguna orquesta.");
+        }
     }
     return retorno;
 }
-

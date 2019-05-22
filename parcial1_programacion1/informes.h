@@ -2,10 +2,19 @@
 #define INFORMES_H_INCLUDED
 
 
-int Informes_listarPorCriterio(Tipo arrayA, Tipo arrayB, int sizeI, int sizeJ, char* criterio);
-int Informes_listarCriterioContadorAcumulado(Tipo arrayA, Tipo arrayB, int sizeI, int sizeJ);
-int Informes_maxContadorAcumulado(Tipo arrayA, Tipo arrayB, int sizeI, int sizeJ);
+typedef struct
+{
+    int idOrquesta;
+    int isEmpty;
+}MusicoAuxiliar;
 
-
+int informes_orquestasPorLugar(Orquesta array[], int sizeArray);
+int informes_musicosMenoresA25(Musico arrayMusicos[], Instrumento arrayInstrumentos[], Orquesta arrayOrquestas[], int sizeArray, int sizeOrquestas, int sizeInstrumentos);
+int informes_listarOrquestasMenosDe6(Orquesta array[], Musico arrayMusicos[], int size, int sizeMusicos);
+int informes_instrumentosDeUnaOrquesta(Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeMusicos, int sizeInstrumentos);
+int informes_orquestasCompletas(Orquesta arrayOrquestas[], Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeOrquestas, int sizeMusicos, int sizeInstrumentos);
+int informes_ordenarMusicos(MusicoAuxiliar array[],int size);
+int informes_initMusicoAuxiliar(MusicoAuxiliar arrayAux[], int sizeArray);
+int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrquestas[], MusicoAuxiliar arrayAux[], int sizeMusicos, int sizeOrquestas);
 
 #endif // INFORMES_H_INCLUDED

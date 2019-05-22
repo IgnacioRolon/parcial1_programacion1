@@ -47,13 +47,15 @@
 	"Orquesta.h"
 	"Instrumentos.h"
 
-1558053494 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/main.c
+1558482478 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/main.c
 	<stdio.h>
 	<stdlib.h>
+	<stdio_ext.h>
 	"utn.h"
 	"Orquesta.h"
 	"Instrumentos.h"
 	"Musico.h"
+	"informes.h"
 
 1557869046 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/utn.h
 
@@ -78,7 +80,7 @@
 	"utn.h"
 	"Instrumentos.h"
 
-1558053353 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Orquesta.c
+1558053729 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/Orquesta.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
@@ -95,4 +97,15 @@
 	"Musico.h"
 	"Orquesta.h"
 	"Instrumentos.h"
+
+1558482363 source:/home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/informes.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Musico.h"
+	"Instrumentos.h"
+	"informes.h"
+
+1558482377 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/informes.h
 
