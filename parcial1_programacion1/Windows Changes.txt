@@ -1,0 +1,2 @@
+cambiar //__fpurge(stdin); por __fpurge(stdin);
+descomentar las librerias _ext

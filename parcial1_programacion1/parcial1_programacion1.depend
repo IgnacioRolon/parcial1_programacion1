@@ -109,3 +109,64 @@
 
 1558482377 /home/alumno/Rolon/parcial1_programacion1/parcial1_programacion1/informes.h
 
+1559159637 source:c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\informes.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Musico.h"
+	"Instrumentos.h"
+	"informes.h"
+
+1559150682 c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\utn.h
+
+1559159572 c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\musico.h
+	"Orquesta.h"
+	"Instrumentos.h"
+
+1559150682 c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\orquesta.h
+
+1559150682 c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\instrumentos.h
+
+1559159653 c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\informes.h
+
+1559150682 source:c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\instrumentos.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Instrumentos.h"
+
+1559159715 source:c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+	"Orquesta.h"
+	"Instrumentos.h"
+	"Musico.h"
+	"informes.h"
+
+1559159532 source:c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\musico.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Musico.h"
+	"Orquesta.h"
+	"Instrumentos.h"
+
+1559150682 source:c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\orquesta.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"utn.h"
+	"Musico.h"
+	"Orquesta.h"
+
+1559150682 source:c:\users\ignir\desktop\escritorio\programacion\parcial1_programacion1\parcial1_programacion1\utn.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+

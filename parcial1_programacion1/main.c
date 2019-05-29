@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio_ext.h>
+//#include <stdio_ext.h>
+#include <string.h>
 #include "utn.h"
 #include "Orquesta.h"
 #include "Instrumentos.h"
@@ -134,7 +135,7 @@ int main()
     while(respuesta != 11)
     {
         utn_getUnsignedInt("\n1) Agregar Orquesta\n2) Eliminar Orquesta\n3) Imprimir Orquestas\n4) Agregar Musico\n5) Modificar Musico\n6) Eliminar Musico\n7) Imprimir Musicos\n8) Agregar Instrumento\n9) Imprimir Instrumentos\n10) Informes\n11) Salir\n", "ERROR: Ingrese un numero valido.", 0, 3, 0, 10, 1, &respuesta);
-        __fpurge(stdin);
+        //__fpurge(stdin);
         switch(respuesta)
         {
             case 1:
@@ -170,8 +171,8 @@ int main()
                 instrumento_listar(arrayInstrumentos, INSTRUMENTOS_MAX);
                 break;
             case 10:
-            utn_getUnsignedInt("\n1) Listar Orquestas por lugar\n2) Listar Musicos menores de 25 aÃ±os\n3) Listar Orquestas con menos de 6 musicos\n4) Listar instrumentos de una Orquesta determinada\n5) Listar Orquestas Completas\n6) ", "ERROR: Ingrese un numero valido.", 0, 3, 0, 10, 1, &respuestaSubmenu);
-            __fpurge(stdin);
+            utn_getUnsignedInt("\n1) Listar Orquestas por lugar\n2) Listar Musicos menores de 25 años\n3) Listar Orquestas con menos de 6 musicos\n4) Listar instrumentos de una Orquesta determinada\n5) Listar Orquestas Completas\n6) Listar Orquesta con menos musicos\n7) Listar promedio de instrumentos\n8) Listar musicos que no toquen instrumentos de viento\n", "ERROR: Ingrese un numero valido.", 0, 3, 0, 10, 1, &respuestaSubmenu);
+            //__fpurge(stdin);
             switch(respuestaSubmenu)
             {
                 case 1:
@@ -191,6 +192,12 @@ int main()
                     break;
                 case 6:
                     informes_orquestaConMenosMusicos(arrayMusicos, arrayOrquestas, arrayAuxiliar, MUSICOS_MAX, ORQUESTAS_MAX);
+                    break;
+                case 7:
+                    informes_promedioDeInstrumentos(arrayMusicos, arrayOrquestas, MUSICOS_MAX, ORQUESTAS_MAX);
+                    break;
+                case 8:
+                    informes_sinInstrumentosViento(arrayMusicos, arrayInstrumentos, MUSICOS_MAX, INSTRUMENTOS_MAX);
                     break;
             }
         }

@@ -16,5 +16,7 @@ int informes_orquestasCompletas(Orquesta arrayOrquestas[], Musico arrayMusicos[]
 int informes_ordenarMusicos(MusicoAuxiliar array[],int size);
 int informes_initMusicoAuxiliar(MusicoAuxiliar arrayAux[], int sizeArray);
 int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrquestas[], MusicoAuxiliar arrayAux[], int sizeMusicos, int sizeOrquestas);
+int informes_promedioDeInstrumentos(Musico arrayMusicos[], Orquesta arrayOrquestas[], int sizeMusicos, int sizeOrquestas);
+int informes_sinInstrumentosViento(Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeMusicos, int sizeInstrumentos);
 
 #endif // INFORMES_H_INCLUDED

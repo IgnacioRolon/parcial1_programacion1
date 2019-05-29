@@ -270,9 +270,9 @@ int informes_ordenarMusicos(MusicoAuxiliar array[],int size)                    
         do
         {
             flagSwap=0;
-            for(i = 1; i < size-1; i++)
+            for(i = 0; i < size-1; i++)
             {
-                if(array[i].idOrquesta < array[i+1].idOrquesta)
+                if(array[i].idOrquesta > array[i+1].idOrquesta)
                 {
                     flagSwap=1;
                     buffer = array[i];
@@ -292,14 +292,14 @@ int informes_initMusicoAuxiliar(MusicoAuxiliar arrayAux[], int sizeArray)
     for(i=0;i<sizeArray;i++)
     {
         arrayAux[i].isEmpty = 1;
-        arrayAux[i].idOrquesta = -1;
+        arrayAux[i].idOrquesta = 10001;
     }
     return 0;
 }
 
 int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrquestas[], MusicoAuxiliar arrayAux[], int sizeMusicos, int sizeOrquestas)
 {
-    int i;
+    int i,j;
     int retorno = -1;
     int posicionAux = 0;
     int orquestaRepetida;
@@ -317,6 +317,7 @@ int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrques
                 continue;
             }
             arrayAux[posicionAux].idOrquesta = arrayMusicos[i].idOrquesta;
+            arrayAux[posicionAux].isEmpty = 0;
             posicionAux++;
         }
         informes_ordenarMusicos(arrayAux, sizeMusicos);
@@ -335,10 +336,10 @@ int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrques
                 if(contadorAuxiliar<contadorSeguidos)
                 {
                     contadorSeguidos = contadorAuxiliar;
-                    orquestaMenor = arrayAux[i-1].idOrquesta;
+                    orquestaMenor = arrayAux[i].idOrquesta;
                     retorno = 0;
                 }
-                contadorAuxiliar = 0;
+                contadorAuxiliar = 1;
                 orquestaRepetida = arrayAux[i].idOrquesta;
             }
             if(arrayAux[i].isEmpty == 1)
@@ -347,35 +348,129 @@ int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrques
             }
         }
         //orquestaMenor contiene la Orquesta menos frecuente (la ID)
-        for(i=0;i<sizeOrquestas;i++)
+        contadorAuxiliar = 0;
+        for(i=0;i<sizeMusicos;i++)
         {
-            if(arrayOrquestas[i].isEmpty)
+            if(arrayAux[i].isEmpty == 1)
             {
+                break; //Se hace break porque se sabe que todos estarán llenos hasta llegar a un isEmpty.
+            }
+            if(i==0)
+            {
+                orquestaRepetida = arrayAux[i].idOrquesta;
+                contadorAuxiliar = 1;
                 continue;
             }
-            if(arrayOrquestas[i].idUnico == orquestaMenor)
+            if(arrayAux[i].idOrquesta == orquestaRepetida)
             {
-                switch(arrayOrquestas[i].tipo)
+
+                contadorAuxiliar++;
+            }else{
+                if(contadorAuxiliar==contadorSeguidos)
                 {
-                    case 1:
-                        strcpy(bufferTipo, "Sinfonica");
-                        break;
-                    case 2:
-                        strcpy(bufferTipo, "Filarmonica");
-                        break;
-                    case 3:
-                        strcpy(bufferTipo, "Camara");
-                        break;
+                    orquestaMenor = arrayAux[i-1].idOrquesta;
+                    for(j=0;i<sizeOrquestas;j++)
+                    {
+                        if(arrayOrquestas[j].isEmpty)
+                        {
+                            continue;
+                        }
+                        if(arrayOrquestas[j].idUnico == orquestaMenor)
+                        {
+                            switch(arrayOrquestas[j].tipo)
+                            {
+                                case 1:
+                                    strcpy(bufferTipo, "Sinfonica");
+                                    break;
+                                case 2:
+                                    strcpy(bufferTipo, "Filarmonica");
+                                    break;
+                                case 3:
+                                    strcpy(bufferTipo, "Camara");
+                                    break;
+                            }
+                            printf("\nOrquesta: %s\nLugar: %s\nTipo %s\nCantidad de Musicos: %d\n",
+                                    arrayOrquestas[j].nombre, arrayOrquestas[j].lugar, bufferTipo, contadorSeguidos);
+                            retorno = 0;
+                            break;
+                        }
+                    }
                 }
-                printf("\nOrquesta: %s\nLugar: %s\nTipo %s\nCantidad de Musicos: %d",
-                        arrayOrquestas[i].nombre, arrayOrquestas[i].lugar, bufferTipo, contadorSeguidos);
-                retorno = 0;
+                contadorAuxiliar = 1;
+                orquestaRepetida = arrayAux[i].idOrquesta;
             }
         }
         if(retorno)
         {
             printf("No se encontro ninguna orquesta.");
         }
+    }
+    return retorno;
+}
+
+int informes_promedioDeInstrumentos(Musico arrayMusicos[], Orquesta arrayOrquestas[], int sizeMusicos, int sizeOrquestas)
+{
+    int i;
+    int retorno = -1;
+    float contadorInstrumentos = 0;
+    float contadorOrquestas = 0;
+    float promedioInstrumentos;
+    if(arrayMusicos != NULL && arrayOrquestas != NULL && sizeMusicos > 0 && sizeOrquestas > 0)
+    {
+        for(i=0;i<sizeMusicos;i++)
+        {
+            if(arrayMusicos[i].isEmpty == 1)
+            {
+                continue;
+            }else
+            {
+                contadorInstrumentos += 1;
+            }
+        }
+        for(i=0;i<sizeOrquestas;i++)
+        {
+            if(arrayOrquestas[i].isEmpty == 1)
+            {
+                continue;
+            }else
+            {
+                contadorOrquestas += 1;
+            }
+        }
+        retorno = 0;
+    }
+    promedioInstrumentos = contadorInstrumentos / contadorOrquestas;
+    printf("El promedio de instrumentos es: %.2f", promedioInstrumentos);
+    return retorno;
+}
+
+int informes_sinInstrumentosViento(Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeMusicos, int sizeInstrumentos)
+{
+    Musico arrayAuxiliar[sizeMusicos];
+    musico_Inicializar(arrayAuxiliar, sizeMusicos);
+    int i;
+    int posicionAux = 0;
+    int posicionInstrumento;
+    int retorno = -1;
+    if(arrayMusicos != NULL && sizeMusicos > 0)
+    {
+        for(i=0;i<sizeMusicos;i++)
+        {
+            if(arrayMusicos[i].isEmpty == 1)
+            {
+                continue;
+            }else
+            {
+                instrumento_buscarID(arrayInstrumentos, sizeInstrumentos, arrayMusicos[i].idInstrumento, &posicionInstrumento);
+                if(arrayInstrumentos[posicionInstrumento].tipo != 2 && arrayInstrumentos[posicionInstrumento].tipo != 3)
+                {
+                    arrayAuxiliar[posicionAux] = arrayMusicos[i];
+                    posicionAux++;
+                }
+            }
+        }
+        musico_ordenarPorUnCriterio(arrayAuxiliar, sizeMusicos, 1);
+        musico_listar(arrayAuxiliar, arrayInstrumentos, sizeMusicos);
     }
     return retorno;
 }
