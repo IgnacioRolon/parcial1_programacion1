@@ -8,6 +8,13 @@
 
 #define TEXT_SIZE 20
 
+/** \brief Lista las orquestas de un lugar especifico
+* \param1 array Orquesta Array de Orquesta
+* \param2 sizeArray int Tamaño del array
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
+
 int informes_orquestasPorLugar(Orquesta array[], int sizeArray)
 {
     int i;
@@ -49,6 +56,17 @@ int informes_orquestasPorLugar(Orquesta array[], int sizeArray)
     }
     return retorno;
 }
+
+/** \brief Lista los elementos de un array
+* \param1 arrayMusicos musico Array de musico
+* \param2 arrayInstrumento instrumento Array de Instrumento
+* \param3 arrayOrquestas Orquesta Array de Orquesta
+* \param4 sizeArray int Tamaño del array de Musicos
+* \param5 sizeOrquestas int Tamaño del array de Orquesta
+* \param6 sizeInstrumentos int Tamaño del Array de Instrumento
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
 
 int informes_musicosMenoresA25(Musico arrayMusicos[], Instrumento arrayInstrumentos[], Orquesta arrayOrquestas[], int sizeArray, int sizeOrquestas, int sizeInstrumentos)
 {
@@ -95,7 +113,16 @@ int informes_musicosMenoresA25(Musico arrayMusicos[], Instrumento arrayInstrumen
     return retorno;
 }
 
-int informes_listarOrquestasMenosDe6(Orquesta array[], Musico arrayMusicos[], int size, int sizeMusicos)                      //cambiar orquesta
+/** \brief Lista las orquestas con menos de 6 musicos
+* \param1 array Orquesta Array de Orquesta
+* \param2 arrayMusicos musico Array de musico
+* \param3 size int Tamaño del array de Orquesta
+* \param4 sizeMusicos int Tamaño del array de Musico
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
+
+int informes_listarOrquestasMenosDe6(Orquesta array[], Musico arrayMusicos[], int size, int sizeMusicos)
 {
     int retorno=-1;
     char bufferTipo[TEXT_SIZE];
@@ -144,6 +171,15 @@ int informes_listarOrquestasMenosDe6(Orquesta array[], Musico arrayMusicos[], in
     }
     return retorno;
 }
+
+/** \brief Lista los instrumentos de una orquesta determinada
+* \param1 arrayMusicos musico Array de musico
+* \param2 arrayInstrumento instrumento Array de Instrumento
+* \param3 sizeMusicos int Tamaño del array de Musicos
+* \param4 sizeInstrumentos int Tamaño del Array de Instrumento
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
 
 int informes_instrumentosDeUnaOrquesta(Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeMusicos, int sizeInstrumentos)
 {
@@ -195,6 +231,17 @@ int informes_instrumentosDeUnaOrquesta(Musico arrayMusicos[], Instrumento arrayI
     }
     return retorno;
 }
+
+/** \brief Lista las orquestas que cumplen el criterio de estar completas
+* \param1 arrayOrquestas Orquesta Array de Orquesta
+* \param2 arrayMusicos musico Array de musico
+* \param3 arrayInstrumentos instrumento Array de Instrumento
+* \param4 sizeOrquestas int Tamaño del array de Orquesta
+* \param5 sizeMusicos int Tamaño del array de Musicos
+* \param6 sizeInstrumentos int Tamaño del Array de Instrumento
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
 
 int informes_orquestasCompletas(Orquesta arrayOrquestas[], Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeOrquestas, int sizeMusicos, int sizeInstrumentos)
 {
@@ -259,7 +306,14 @@ int informes_orquestasCompletas(Orquesta arrayOrquestas[], Musico arrayMusicos[]
     return retorno;
 }
 
-int informes_ordenarMusicos(MusicoAuxiliar array[],int size)                              //cambiar musico
+/** \brief Ordena el array de MusicoAuxiliar
+* \param1 array Musico Array de Musico
+* \param2 size int Tamaño del array de Musicos
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
+
+int informes_ordenarMusicos(MusicoAuxiliar array[],int size)
 {
     int retorno=-1;
     int i;
@@ -286,6 +340,13 @@ int informes_ordenarMusicos(MusicoAuxiliar array[],int size)                    
     return retorno;
 }
 
+/** \brief Inicializa el array de MusicoAuxiliar
+* \param1 arrayAux MusicoAuxiliar Array Auxiliar de Informes
+* \param2 sizeArray int Tamaño del array de MusicoAuxiliar
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
+
 int informes_initMusicoAuxiliar(MusicoAuxiliar arrayAux[], int sizeArray)
 {
     int i;
@@ -296,6 +357,16 @@ int informes_initMusicoAuxiliar(MusicoAuxiliar arrayAux[], int sizeArray)
     }
     return 0;
 }
+
+/** \brief Lista la/las orquesta/s con menos musicos.
+* \param1 arrayOrquestas Orquesta Array de Orquesta
+* \param2 arrayMusicos musico Array de musico
+* \param3 arrayAux MusicoAuxiliar Array de MusicoAuxiliar
+* \param4 sizeMusicos int Tamaño del array de Musicos
+* \param5 sizeOrquestas int Tamaño del array de Orquesta
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
 
 int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrquestas[], MusicoAuxiliar arrayAux[], int sizeMusicos, int sizeOrquestas)
 {
@@ -408,6 +479,15 @@ int informes_orquestaConMenosMusicos(Musico arrayMusicos[], Orquesta arrayOrques
     return retorno;
 }
 
+/** \brief Muestra el promedio de instrumentos por orquesta
+* \param1 arrayMusicos musico Array de musico
+* \param2 arrayOrquestas Orquesta Array de Orquesta
+* \param3 sizeMusicos int Tamaño del array de Musicos
+* \param4 sizeOrquestas int Tamaño del array de Orquesta
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
+
 int informes_promedioDeInstrumentos(Musico arrayMusicos[], Orquesta arrayOrquestas[], int sizeMusicos, int sizeOrquestas)
 {
     int i;
@@ -443,6 +523,16 @@ int informes_promedioDeInstrumentos(Musico arrayMusicos[], Orquesta arrayOrquest
     printf("El promedio de instrumentos es: %.2f", promedioInstrumentos);
     return retorno;
 }
+
+/** \brief Lista las orquestas sin instrumentos de viento
+* \param1 arrayMusicos musico Array de musico
+* \param2 arrayInstrumentos instrumento Array de Instrumento
+* \param3 sizeMusicos int Tamaño del array de Musicos
+* \param4 sizeInstrumentos int Tamaño del Array de Instrumento
+* \return int Return (-1) si Error [largo no valido o NULL pointer] - (0) si se lista exitosamente
+*
+*/
+
 
 int informes_sinInstrumentosViento(Musico arrayMusicos[], Instrumento arrayInstrumentos[], int sizeMusicos, int sizeInstrumentos)
 {

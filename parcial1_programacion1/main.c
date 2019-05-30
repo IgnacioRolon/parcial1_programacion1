@@ -1,3 +1,18 @@
+/******************************************************************
+* Programa: Calculadora (Trabajo Práctico Numero 1)
+*
+* Objetivo:
+*   -Crear multiples estructuras relacionadas entre si.
+*   -Crear funciones que permitan realizar las acciones de Alta, Baja y Modificacion
+*   -Crear funciones que permitan obtener informes respecto a los datos ingresados.
+*   -Realizar una biblioteca que contenga todas las funciones utilizadas.
+*   -Documentar las funciones.
+*
+* Autor: Ignacio Rolón
+*
+* *******************************************************************/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 //#include <stdio_ext.h>
